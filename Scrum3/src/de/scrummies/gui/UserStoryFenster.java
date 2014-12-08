@@ -16,7 +16,7 @@ import de.scrummies.scrum3.PropertiesLoader;
 import de.scrummies.scrum3.ScrumWebService;
 import de.scrummies.scrumService.UserStory;
 
-public class UsFenster extends Fenster implements ActionListener
+public class UserStoryFenster extends Fenster implements ActionListener
 {
 	private String[] storyPointsChooser;
 	private UserStory story;
@@ -27,7 +27,7 @@ public class UsFenster extends Fenster implements ActionListener
 	 * Create the frame.
 	 */
 	@SuppressWarnings("unchecked")
-	public UsFenster(String id) 
+	public UserStoryFenster(String id) 
 	{
 
 		super("User Story", id,"StoryPoints");

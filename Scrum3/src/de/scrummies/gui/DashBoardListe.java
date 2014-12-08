@@ -14,7 +14,7 @@ import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
 
-public class Liste extends JPanel 
+public class DashBoardListe extends JPanel 
 {
 	
 	private JList<String> list;
@@ -24,7 +24,7 @@ public class Liste extends JPanel
 	/**
 	 * Konstruktor
 	 */
-	public Liste() 
+	public DashBoardListe() 
 	{
 		createWindow();
 		loadList(new String[]{"1","2","3","4","5","6","7","8","9","10"});

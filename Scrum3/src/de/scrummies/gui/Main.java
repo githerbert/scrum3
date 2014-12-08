@@ -167,7 +167,7 @@ public class Main extends JFrame implements ActionListener
 		switch(e.getActionCommand())
 		{
 		case "us":
-			UsFenster neu = new UsFenster("");
+			UserStoryFenster neu = new UserStoryFenster("");
 		}
 		
 	}

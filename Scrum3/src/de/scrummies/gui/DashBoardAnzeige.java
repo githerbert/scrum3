@@ -12,7 +12,7 @@ import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-public class Anzeige extends JPanel 
+public class DashBoardAnzeige extends JPanel 
 {
 	
 	private JLabel lblInArbeit;
@@ -27,7 +27,7 @@ public class Anzeige extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public Anzeige(String eins, String zwei, String drei) 
+	public DashBoardAnzeige(String eins, String zwei, String drei) 
 	{
 		
 		createWindow(eins,zwei,drei);
@@ -143,7 +143,7 @@ public class Anzeige extends JPanel
 	 * 
 	 * @return die Anzeige selbt
 	 */
-	public Anzeige getPanel()
+	public DashBoardAnzeige getPanel()
 	{
 		return this;
 	}

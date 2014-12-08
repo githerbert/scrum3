@@ -103,7 +103,7 @@ public class Tabelle<E> extends JPanel
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getClickCount() == 2) 
 				{
-					UsFenster us = new UsFenster(table.getModel().getValueAt(table.getSelectedRow(), 2).toString());
+					UserStoryFenster us = new UserStoryFenster(table.getModel().getValueAt(table.getSelectedRow(), 2).toString());
 					
 				}
 		
