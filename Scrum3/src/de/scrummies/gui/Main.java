@@ -42,7 +42,6 @@ public class Main extends JFrame implements ActionListener
 	private DefaultTableModel dtm;
 	private ScrumWebService scws;
 	private StatusBarPanel stbPanel;
-	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -144,35 +143,18 @@ public class Main extends JFrame implements ActionListener
 		getContentPane().add(panel_1, BorderLayout.NORTH);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{170, 0, 325, 208, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
 		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/de/scrummies/images/dbheader.png")));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel.gridwidth = 4;
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
-		
-		JLabel lblSuche = new JLabel("Suche");
-		GridBagConstraints gbc_lblSuche = new GridBagConstraints();
-		gbc_lblSuche.insets = new Insets(0, 0, 0, 5);
-		gbc_lblSuche.anchor = GridBagConstraints.EAST;
-		gbc_lblSuche.gridx = 2;
-		gbc_lblSuche.gridy = 1;
-		panel_1.add(lblSuche, gbc_lblSuche);
-		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 1;
-		panel_1.add(textField, gbc_textField);
-		textField.setColumns(10);
 	}
 	
 	/**
