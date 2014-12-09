@@ -111,6 +111,13 @@ public class Tabelle<E> extends JPanel
 		});
 	}
 	
+	public DefaultTableModel getTableModel(){
+		return dtm;
+	}
+	
+	public JTable getTable(){
+		return table;
+	}
 	
 	
 	@SuppressWarnings("unchecked")

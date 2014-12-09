@@ -6,11 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingWorker;
 
 import java.awt.Color;
 
@@ -19,6 +22,8 @@ import javax.swing.JProgressBar;
 
 import de.scrummies.scrum3.FindAllUserStorys;
 import de.scrummies.scrum3.ScrumWebService;
+import de.scrummies.scrumService.ArrayOfOrder;
+import de.scrummies.scrumService.Order;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -31,16 +36,17 @@ public class Main extends JFrame implements ActionListener
 	private Tabelle bl;
 	private Tabelle bug;
 	private static ScrumWebService sService;
+	private JProgressBar progressBar;
+	private DefaultTableModel dtm;
+	private ScrumWebService scws;
 
 	/**
 	 * Create the frame.
 	 */
 	public Main() 
 	{
-		
+		scws = new ScrumWebService();
 		createWindow();
-		
-		
 	}
 	
 	/**
@@ -56,12 +62,11 @@ public class Main extends JFrame implements ActionListener
 		createTabs();
 		setVisible(true);
 		setTitle("ScrumÂ³");
-		
 	}
 	
 	
 	/**
-	 * Erstellt das MenÃ¼ mit seinen UntereintrÃ¤gen
+	 * Erstellt das Menü mit seinen Untereinträgen
 	 */
 	private void createMenu()
 	{
@@ -88,9 +93,14 @@ public class Main extends JFrame implements ActionListener
 		
 		JMenu mnndern = new JMenu("Funktionen");
 		menuBar.add(mnndern);
-		JMenuItem schaetzmodus = new JMenuItem("SchÃ¤tzmodus");
+		JMenuItem schaetzmodus = new JMenuItem("Schätzmodus");
 		mnndern.add(schaetzmodus);
-		JMenuItem prioUpdate = new JMenuItem("PrioritÃ¤ten updaten");
+		JMenuItem prioUpdate = new JMenuItem("Prioritäten updaten");
+		prioUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updatePriority(progressBar);
+			}
+		});
 		mnndern.add(prioUpdate);
 		
 		JMenu mnHilfe = new JMenu("Hilfe");
@@ -103,7 +113,7 @@ public class Main extends JFrame implements ActionListener
 	
 	
 	/**
-	 * Panel fÃ¼r den unteren Teil wird erstellt
+	 * Panel für den unteren Teil wird erstellt
 	 */
 	private void createSouthPanel()
 	{
@@ -111,13 +121,13 @@ public class Main extends JFrame implements ActionListener
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblScrum = new JLabel("Hier kÃ¶nnte ein ICON stehen!");
+		JLabel lblScrum = new JLabel("Hier könnte ein ICON stehen!");
 		panel.add(lblScrum);
 		
 		JLabel lblFehler = new JLabel("Fehler oder Whatever");
 		panel.add(lblFehler);
 		
-		JProgressBar progressBar = new JProgressBar();
+		progressBar = new JProgressBar();
 		panel.add(progressBar);
 	}
 	
@@ -139,7 +149,7 @@ public class Main extends JFrame implements ActionListener
 	}
 	
 	/**
-	 * Erstellt die TabeintrÃ¤ge
+	 * Erstellt die Tabeinträge
 	 */
 	private void createTabs()
 	{
@@ -172,6 +182,34 @@ public class Main extends JFrame implements ActionListener
 		
 	}
 	
-	
+	public void updatePriority(final JProgressBar bar){
+		new SwingWorker<Void, Void>() {
+			ArrayOfOrder a = new ArrayOfOrder();
+			
+			@Override
+			protected Void doInBackground() throws Exception {
+				bar.setValue(0);
+				int prozess = 100/bl.getTableModel().getRowCount();
+				int fortschritt=0;
+				int rows = bl.getTableModel().getRowCount();
+				for (int i = 0; i < rows; i++) {
+					Order order = new Order();
+					order.setId(bl.getTable().getModel().getValueAt(i, 2).toString());
+					order.setPrio(i);
+					a.getOrder().add(order);
+					fortschritt = fortschritt+prozess;
+					bar.setValue(fortschritt);
+				}
+				return null;
+			};
 
+	     protected void done() {
+		    bar.setValue(100);
+	    	scws = new ScrumWebService();
+	    	scws.userStorySetPrio(scws.getSessionToken(), a);
+			JOptionPane.showMessageDialog(null,bl.getTableModel().getRowCount() +" Prioritäten erfolgreich geupdated.","Prioritäten Update", JOptionPane.INFORMATION_MESSAGE);
+	     };
+	  }.execute();
+	  bar.setVisible(true);
+	}
 }
