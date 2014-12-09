@@ -15,8 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingWorker;
 
-import java.awt.Color;
-
 import javax.swing.JTextField;
 import javax.swing.JProgressBar;
 
@@ -61,7 +59,7 @@ public class Main extends JFrame implements ActionListener
 		createSouthPanel();
 		createTabs();
 		setVisible(true);
-		setTitle("ScrumÂ³");
+		setTitle("Scrum³");
 	}
 	
 	
@@ -117,18 +115,18 @@ public class Main extends JFrame implements ActionListener
 	 */
 	private void createSouthPanel()
 	{
-		JPanel panel = new JPanel();
+		StatusBarPanel panel = new StatusBarPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblScrum = new JLabel("Hier könnte ein ICON stehen!");
-		panel.add(lblScrum);
 		
-		JLabel lblFehler = new JLabel("Fehler oder Whatever");
-		panel.add(lblFehler);
-		
-		progressBar = new JProgressBar();
-		panel.add(progressBar);
+//		JLabel lblScrum = new JLabel("Hier könnte ein ICON stehen!");
+//		panel.add(lblScrum);
+//		
+//		JLabel lblFehler = new JLabel("Fehler oder Whatever");
+//		panel.add(lblFehler);
+//		
+//		progressBar = new JProgressBar();
+//		panel.add(progressBar);
 	}
 	
 	/**
