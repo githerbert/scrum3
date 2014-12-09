@@ -84,7 +84,7 @@ public class Tabelle<E> extends JPanel
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setDragEnabled(true);
 		table.setTransferHandler(new TableTransferHandler());
-		table.setRowHeight(50);
+		table.setRowHeight(35);
 		    
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);

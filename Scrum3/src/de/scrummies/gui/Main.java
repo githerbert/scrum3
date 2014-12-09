@@ -26,10 +26,14 @@ import de.scrummies.scrumService.Order;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.ImageIcon;
 
 public class Main extends JFrame implements ActionListener
 {
-	private JTextField suche;
 	private DBoard db;
 	private Tabelle bl;
 	private Tabelle bug;
@@ -38,6 +42,7 @@ public class Main extends JFrame implements ActionListener
 	private DefaultTableModel dtm;
 	private ScrumWebService scws;
 	private StatusBarPanel stbPanel;
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -60,7 +65,7 @@ public class Main extends JFrame implements ActionListener
 		createSouthPanel();
 		createTabs();
 		setVisible(true);
-		setTitle("Scrum³");
+		setTitle("Scrum\u00B3");
 	}
 	
 	
@@ -137,14 +142,37 @@ public class Main extends JFrame implements ActionListener
 	{
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.NORTH);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{170, 0, 325, 208, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/de/scrummies/images/dbheader.png")));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.gridwidth = 4;
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JLabel lblSuche = new JLabel("Suche");
-		panel_1.add(lblSuche);
+		GridBagConstraints gbc_lblSuche = new GridBagConstraints();
+		gbc_lblSuche.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSuche.anchor = GridBagConstraints.EAST;
+		gbc_lblSuche.gridx = 2;
+		gbc_lblSuche.gridy = 1;
+		panel_1.add(lblSuche, gbc_lblSuche);
 		
-		suche = new JTextField();
-		panel_1.add(suche);
-		suche.setColumns(20);
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 3;
+		gbc_textField.gridy = 1;
+		panel_1.add(textField, gbc_textField);
+		textField.setColumns(10);
 	}
 	
 	/**
