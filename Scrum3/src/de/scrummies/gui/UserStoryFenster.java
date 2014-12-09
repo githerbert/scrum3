@@ -69,12 +69,12 @@ public class UserStoryFenster extends Fenster implements ActionListener
 	{
 		textField.setText(story.getTitle().getValue().toString());
 		textArea.setText(story.getContent().getValue().toString());
-		datumErstellt.setText(story.getRecCreated().getDay() + "/" + story.getRecCreated().getMonth() + "/" + story.getRecCreated().getYear() + " (" +(story.getRecCreated().getHour()+1) + ":" + korrigiereMinute(story.getRecCreated().getMinute()) + ")");
-		datumGeaendert.setText(story.getRecModified().getDay() + "/" + story.getRecModified().getMonth() + "/" + story.getRecModified().getYear() + " (" +(story.getRecModified().getHour()+1) + ":" + korrigiereMinute(story.getRecModified().getMinute()) + ")");
-		datumErstellt.setVisible(true);
-		datumGeaendert.setVisible(true);
-		lblGendertAm.setVisible(true);
-		lblErstelltAm.setVisible(true);
+		getDatumErstellt().setText(story.getRecCreated().getDay() + "/" + story.getRecCreated().getMonth() + "/" + story.getRecCreated().getYear() + " (" +(story.getRecCreated().getHour()+1) + ":" + korrigiereMinute(story.getRecCreated().getMinute()) + ")");
+		getDatumGeaendert().setText(story.getRecModified().getDay() + "/" + story.getRecModified().getMonth() + "/" + story.getRecModified().getYear() + " (" +(story.getRecModified().getHour()+1) + ":" + korrigiereMinute(story.getRecModified().getMinute()) + ")");
+		getDatumErstellt().setVisible(true);
+		getDatumGeaendert().setVisible(true);
+		getDatumGeaendert().setVisible(true);
+		getDatumErstellt().setVisible(true);
 		
 		combo1.setSelectedItem(ConvertState.convertToString(story.getState()));
 		
@@ -125,7 +125,7 @@ public class UserStoryFenster extends Fenster implements ActionListener
 		
 		EditUserStory editUs = new EditUserStory(textField.getText(), textArea.getText(), combo2.getSelectedItem().toString(), story, ConvertState.enumStateList[(combo1.getSelectedIndex())]);
 		editUs.updateUS();
-		lblInfo.setText("User Story erfolgreich geändert");
+		//lblInfo.setText("User Story erfolgreich geändert");
 		
 		
 	}
@@ -139,7 +139,7 @@ public class UserStoryFenster extends Fenster implements ActionListener
 	{
 		CreateUserStory userStory = new CreateUserStory(textField.getText(), textArea.getText(), combo2.getSelectedItem().toString());
 		userStory.addStory();
-		lblInfo.setText("User Story erfolgreich erstellt");
+		//lblInfo.setText("User Story erfolgreich erstellt");
 	}
 	
 	private boolean testPoints()
@@ -157,13 +157,13 @@ public class UserStoryFenster extends Fenster implements ActionListener
 		if(corrPoints==true)
 		{
 				updateUs();
-				lblInfo.setText("User Story erfolgreich aktualisiert");
+				//lblInfo.setText("User Story erfolgreich aktualisiert");
 				
 		}
 		else
 		{
 		
-			lblInfo.setText("Speichern nicht möglich: Bitte gültige Story Points zuweisen");
+			//lblInfo.setText("Speichern nicht möglich: Bitte gültige Story Points zuweisen");
 				
 		}
 		
@@ -178,10 +178,10 @@ public class UserStoryFenster extends Fenster implements ActionListener
 		switch (e.getActionCommand())
 		{
 		case "abbrechen":
-			if(btnSpeichern.isEnabled()==true) //Es wurde etwas geändert
+			if(getBtnSpeichern().isEnabled()==true) //Es wurde etwas geändert
 			{
 				int reply = JOptionPane.showConfirmDialog(this,
-						"Wollen Sie vor dem Schließen speichern?", "Schließen",
+						"Wollen Sie vor dem Schlie�en speichern?", "Schlie�en",
 						JOptionPane.YES_NO_OPTION);
 				
 				if (reply == 0) //Ja, speichern
@@ -189,7 +189,7 @@ public class UserStoryFenster extends Fenster implements ActionListener
 					if (textField.getText().equals("")) 
 					{
 						JOptionPane.showMessageDialog(this,
-								"Speichern ohne Titel nicht möglich!",
+								"Speichern ohne Titel nicht m�glich!",
 								"Fehlermeldung", JOptionPane.WARNING_MESSAGE);
 					} 
 					else 
@@ -225,8 +225,6 @@ public class UserStoryFenster extends Fenster implements ActionListener
 			if(istneu == true) //Handling ob es sich um eine neue oder bereits existierende US handelt
 			{
 				createUs();
-				
-				
 			}
 			else
 			{
