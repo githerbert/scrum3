@@ -47,6 +47,7 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.JScrollPane;
 
 public class Fenster extends JFrame implements ActionListener, KeyListener
 {
@@ -74,6 +75,7 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 	private JPanel mid_panel;
 	private JPanel bottom_panel;
 	protected JLabel lblInfo;
+	private JScrollPane scrollPane;
 	
 
 
@@ -204,27 +206,25 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 	private JPanel createMidPanel()
 	{
 		mid_panel = new JPanel();
-		mid_panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Beschreibung", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 		
 		GridBagLayout gbl_mid_panel = new GridBagLayout();
-		gbl_mid_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_mid_panel.rowHeights = new int[]{20, 0, 0};
-		gbl_mid_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_mid_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_mid_panel.columnWidths = new int[]{0, 0};
+		gbl_mid_panel.rowHeights = new int[]{0, 0};
+		gbl_mid_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_mid_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		mid_panel.setLayout(gbl_mid_panel);
-
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
-		textArea.addKeyListener(this);
-	
 		
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridheight = 2;
-		gbc_textArea.gridwidth = 2;
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 0;
-		gbc_textArea.gridy = 0;
-		mid_panel.add(textArea, gbc_textArea);
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		mid_panel.add(scrollPane, gbc_scrollPane);
+		
+				textArea = new JTextArea();
+				scrollPane.setViewportView(textArea);
+				textArea.setLineWrap(true);
+				textArea.addKeyListener(this);
 		
 		return mid_panel;
 		
@@ -250,9 +250,10 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("Button.border"), "Titel", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.anchor = GridBagConstraints.WEST;
 		gbc_panel_1.gridwidth = 2;
 		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 2;
 		
@@ -332,6 +333,7 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 		
 				
 		lblwSp = new JLabel("Falsche Storypoints"); 
+		lblwSp.setForeground(Color.RED);
 		GridBagConstraints gbc_lblwSp = new GridBagConstraints();
 		gbc_lblwSp.anchor = GridBagConstraints.NORTH;
 		gbc_lblwSp.gridx = 3;
@@ -401,13 +403,13 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 		
 		panel.setLayout(gl_panel);
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 538, 484);
 		setVisible(true);
 	}
 	
 	/**
-	 * Erstellt die MenÃ¼leiste
+	 * Erstellt die Menüleiste
 	 */
 	private void createMenu()
 	{

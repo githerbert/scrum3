@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.SliderUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -14,7 +15,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingWorker;
-
 import javax.swing.JTextField;
 import javax.swing.JProgressBar;
 
@@ -37,6 +37,7 @@ public class Main extends JFrame implements ActionListener
 	private JProgressBar progressBar;
 	private DefaultTableModel dtm;
 	private ScrumWebService scws;
+	private StatusBarPanel stbPanel;
 
 	/**
 	 * Create the frame.
@@ -96,7 +97,7 @@ public class Main extends JFrame implements ActionListener
 		JMenuItem prioUpdate = new JMenuItem("Prioritäten updaten");
 		prioUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				updatePriority(progressBar);
+				updatePriority();
 			}
 		});
 		mnndern.add(prioUpdate);
@@ -115,8 +116,8 @@ public class Main extends JFrame implements ActionListener
 	 */
 	private void createSouthPanel()
 	{
-		StatusBarPanel panel = new StatusBarPanel();
-		getContentPane().add(panel, BorderLayout.SOUTH);
+		stbPanel = new StatusBarPanel();
+		getContentPane().add(stbPanel, BorderLayout.SOUTH);
 		
 		
 //		JLabel lblScrum = new JLabel("Hier könnte ein ICON stehen!");
@@ -180,13 +181,13 @@ public class Main extends JFrame implements ActionListener
 		
 	}
 	
-	public void updatePriority(final JProgressBar bar){
+	public void updatePriority(){
 		new SwingWorker<Void, Void>() {
 			ArrayOfOrder a = new ArrayOfOrder();
 			
 			@Override
 			protected Void doInBackground() throws Exception {
-				bar.setValue(0);
+				stbPanel.activateProgressBar(true);
 				int prozess = 100/bl.getTableModel().getRowCount();
 				int fortschritt=0;
 				int rows = bl.getTableModel().getRowCount();
@@ -196,18 +197,17 @@ public class Main extends JFrame implements ActionListener
 					order.setPrio(i);
 					a.getOrder().add(order);
 					fortschritt = fortschritt+prozess;
-					bar.setValue(fortschritt);
+					stbPanel.updateProgressBar(fortschritt);
 				}
 				return null;
 			};
 
 	     protected void done() {
-		    bar.setValue(100);
+	    	stbPanel.updateProgressBar(100);
 	    	scws = new ScrumWebService();
 	    	scws.userStorySetPrio(scws.getSessionToken(), a);
-			JOptionPane.showMessageDialog(null,bl.getTableModel().getRowCount() +" Prioritäten erfolgreich geupdated.","Prioritäten Update", JOptionPane.INFORMATION_MESSAGE);
+	    	stbPanel.updateStatusMeldung("Prioritäten erfolgreich geupdated", false);
 	     };
 	  }.execute();
-	  bar.setVisible(true);
 	}
 }

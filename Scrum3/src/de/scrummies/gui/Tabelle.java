@@ -3,6 +3,7 @@ package de.scrummies.gui;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -19,6 +20,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -57,6 +59,9 @@ public class Tabelle<E> extends JPanel
 	
 	private void createTable(String col2, Object inhalt)
 	{
+		Color c = new Color(204, 222,164);
+	    UIManager.put("Table.selectionBackground",c);
+	    UIManager.put("Table.selectionForeground",Color.BLACK);
 		dtm = new DefaultTableModel(){
 			
 			public boolean isCellEditable(int row, int column)
