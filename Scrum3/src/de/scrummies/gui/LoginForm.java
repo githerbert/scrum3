@@ -171,8 +171,6 @@ public class LoginForm {
 				try {
 					sw.teamLogin(textField.getText(), passwordField.getText(), "0");
 					Main neu = new Main(frmScrumLoginPanel);
-					//Dashboard db = new Dashboard();
-					//db.show();
 					frmScrumLoginPanel.dispose();
 				} catch (Exception e2) 
 				{
