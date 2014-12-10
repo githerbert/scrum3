@@ -30,7 +30,7 @@ public class DashBoardListe extends JPanel
 	public DashBoardListe() 
 	{
 		createWindow();
-		loadList(new String[]{"1","2","3","4","5","6","7","8","9","10"});
+		loadList(new String[]{"1","2","3","4","5","6","7","8","9","10"}) ;
 	}
 	
 	public DashBoardListe(UserStory[] usList) 

@@ -177,7 +177,6 @@ public class DBoard extends JPanel
 		UserStory[] usArray = new UserStory[recentUserStories.size()]; // Array das alle recent User Stories in richtiger Reihenfolge enthält
 		usArray = recentUserStories.toArray(usArray);
 		letzteUs = new DashBoardListe(usArray);
-		
-		
+			
 	}
 }
