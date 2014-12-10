@@ -12,6 +12,9 @@ import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
+import de.scrummies.scrumService.Bug;
+import de.scrummies.scrumService.UserStory;
+
 import java.awt.BorderLayout;
 
 public class DashBoardListe extends JPanel 
@@ -30,6 +33,21 @@ public class DashBoardListe extends JPanel
 		loadList(new String[]{"1","2","3","4","5","6","7","8","9","10"});
 	}
 	
+	public DashBoardListe(UserStory[] usList) 
+	{
+		createWindow();
+		for(int i = 0; i < usList.length;i++){
+			dlm.addElement(usList[i].getTitle().toString());
+		}	
+	}
+	
+	public DashBoardListe(Bug[] bugList) 
+	{	
+		createWindow();
+		for(int i = 0; i < bugList.length;i++){
+			dlm.addElement(bugList[i].getTitle().toString());
+		}		
+	}
 	/**
 	 * Erzeugt das Fenster
 	 */
