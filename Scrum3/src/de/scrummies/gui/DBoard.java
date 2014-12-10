@@ -3,13 +3,28 @@ package de.scrummies.gui;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.BorderLayout;
+
 import javax.swing.BoxLayout;
+
 import java.awt.Component;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+
+import de.scrummies.scrumService.Bug;
+import de.scrummies.scrumService.UserStory;
+
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayDeque;
 
 public class DBoard extends JPanel 
 {
@@ -18,8 +33,11 @@ public class DBoard extends JPanel
 	private DashBoardAnzeige zwei;
 	private DashBoardAnzeige drei;
 	
-	private DashBoardListe letzteUs;
-	private DashBoardListe letzteBugs;
+	private static DashBoardListe letzteUs;
+	private static DashBoardListe letzteBugs;
+	
+	public static ArrayDeque<UserStory>recentUserStories;
+	public static ArrayDeque<Bug>recentBugs;
 
 	/**
 	 * Create the panel.
@@ -53,7 +71,8 @@ public class DBoard extends JPanel
 	{
 		JPanel lastUs_panel = new JPanel();
 		lastUs_panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Letze User Stories", TitledBorder.LEFT, TitledBorder.TOP, null, null));
-		letzteUs = new DashBoardListe();
+		recentUserStoriesRecovery();
+		refreshRecentUserStories();
 		
 		lastUs_panel.setLayout(new BorderLayout(0, 0));
 		lastUs_panel.add(letzteUs);
@@ -129,4 +148,36 @@ public class DBoard extends JPanel
 		return this;
 	}
 
+	private void saveRecentUserStory(){
+		String savepath = new File("").getAbsolutePath();
+
+		try{
+			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(savepath + "/recentUserStories.bin"));
+			os.writeObject(recentUserStories);
+			os.close();
+		}catch(IOException e){ e.printStackTrace(); }
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void recentUserStoriesRecovery(){
+		String savepath = new File("").getAbsolutePath();
+		try{
+			ObjectInputStream is = new ObjectInputStream(new FileInputStream(savepath + "/recentUserStories.bin"));
+			recentUserStories = (ArrayDeque<UserStory>)is.readObject();
+			is.close();
+			if(recentUserStories == null) throw new Exception();
+		}catch(Exception e){
+			recentUserStories = new ArrayDeque<UserStory>(5);
+		}
+	}
+	
+	public static void refreshRecentUserStories(){
+		
+		UserStory[] usArray = new UserStory[recentUserStories.size()]; // Array das alle recent User Stories in richtiger Reihenfolge enthält
+		usArray = recentUserStories.toArray(usArray);
+		letzteUs = new DashBoardListe(usArray);
+		
+		
+	}
 }
