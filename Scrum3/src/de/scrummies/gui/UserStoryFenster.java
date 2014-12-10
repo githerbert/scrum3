@@ -1,5 +1,6 @@
 package de.scrummies.gui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,12 +28,13 @@ public class UserStoryFenster extends Fenster implements ActionListener
 	 * Create the frame.
 	 */
 	@SuppressWarnings("unchecked")
-	public UserStoryFenster(String id) 
+	public UserStoryFenster(String id, Component parent) 
 	{
 
 		super("User Story", id,"StoryPoints");
 		combo1.setModel(new DefaultComboBoxModel(ConvertState.stringStateList));
 		PropertiesLoader pl = new PropertiesLoader();
+		setLocationRelativeTo(parent);
 		
 		storyPointsChooser = pl.loadUsPoints();
 		combo2.setModel(new DefaultComboBoxModel(storyPointsChooser));

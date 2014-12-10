@@ -170,7 +170,7 @@ public class LoginForm {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					sw.teamLogin(textField.getText(), passwordField.getText(), "0");
-					Main neu = new Main();
+					Main neu = new Main(frmScrumLoginPanel);
 					//Dashboard db = new Dashboard();
 					//db.show();
 					frmScrumLoginPanel.dispose();

@@ -1,6 +1,7 @@
 package de.scrummies.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -48,6 +49,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
+
 import java.awt.Image;
 
 public class Fenster extends JFrame implements ActionListener, KeyListener

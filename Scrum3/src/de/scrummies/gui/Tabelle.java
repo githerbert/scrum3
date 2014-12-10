@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -108,7 +109,7 @@ public class Tabelle<E> extends JPanel
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getClickCount() == 2) 
 				{
-					UserStoryFenster us = new UserStoryFenster(table.getModel().getValueAt(table.getSelectedRow(), 2).toString());
+					UserStoryFenster us = new UserStoryFenster(table.getModel().getValueAt(table.getSelectedRow(), 2).toString(), getInstanz());
 				}
 		
 			}
@@ -325,6 +326,10 @@ public class Tabelle<E> extends JPanel
 		    addCount = 0;
 		    addIndex = -1;
 		  }
+	}
+	
+	public Component getInstanz(){
+		return this;
 	}
 
 }

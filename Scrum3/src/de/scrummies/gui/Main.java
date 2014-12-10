@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -66,10 +67,11 @@ public class Main extends JFrame implements ActionListener
 	/**
 	 * Create the frame.
 	 */
-	public Main() 
+	public Main(Component parent) 
 	{
 		scws = new ScrumWebService();
 		createWindow();
+		setLocationRelativeTo(parent);
 	}
 	
 	/**
@@ -206,7 +208,7 @@ public class Main extends JFrame implements ActionListener
 		switch(e.getActionCommand())
 		{
 		case "us":
-			UserStoryFenster neu = new UserStoryFenster("");
+			UserStoryFenster neu = new UserStoryFenster("", this);
 		}
 		
 	}
