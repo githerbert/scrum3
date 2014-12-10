@@ -33,8 +33,14 @@ import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class Main extends JFrame implements ActionListener
 {
@@ -49,6 +55,13 @@ public class Main extends JFrame implements ActionListener
 	private JDialog dlg;
 	private JProgressBar dpb;
 	private int tableRows;
+	
+	private JMenuBar menuBar;
+	private JMenu menuFunktionen;
+	private JMenuItem schaetzmodus;
+	private JMenuItem prioUpdate;
+	
+	private JTabbedPane tabbedPane;
 
 	/**
 	 * Create the frame.
@@ -66,9 +79,10 @@ public class Main extends JFrame implements ActionListener
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 673, 605);
-		createMenu();
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/de/scrummies/images/icon.png")));
 		createNorthPanel();
 		createSouthPanel();
+		createMenu();
 		createTabs();
 		setVisible(true);
 		setTitle("Scrum\u00B3");
@@ -80,7 +94,7 @@ public class Main extends JFrame implements ActionListener
 	 */
 	private void createMenu()
 	{
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
 		JMenu mnDatei = new JMenu("Neu");
@@ -101,19 +115,8 @@ public class Main extends JFrame implements ActionListener
 		JMenu mnBearbeiten = new JMenu("Bearbeiten");
 		menuBar.add(mnBearbeiten);
 		
-		JMenu mnndern = new JMenu("Funktionen");
-		menuBar.add(mnndern);
-		JMenuItem schaetzmodus = new JMenuItem("Schätzmodus");
-		mnndern.add(schaetzmodus);
-		JMenuItem prioUpdate = new JMenuItem("Prioritäten updaten");
-		prioUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				tableRows = bl.getTableModel().getRowCount();
-				stbPanel.createProgressMonitor("Priority Update...", getInstanz(), false, tableRows);
-				updatePriority();
-			}
-		});
-		mnndern.add(prioUpdate);
+		menuFunktionen = new JMenu("Funktionen");
+		menuBar.add(menuFunktionen);
 		
 		JMenu mnHilfe = new JMenu("Hilfe");
 		menuBar.add(mnHilfe);
@@ -121,6 +124,10 @@ public class Main extends JFrame implements ActionListener
 		JMenuItem mntmInfo = new JMenuItem("Info");
 		mnHilfe.add(mntmInfo);
 		
+	}
+	
+	private void clearMenu(){
+		menuFunktionen.removeAll();
 	}
 	
 	
@@ -131,16 +138,6 @@ public class Main extends JFrame implements ActionListener
 	{
 		stbPanel = new StatusBarPanel();
 		getContentPane().add(stbPanel, BorderLayout.SOUTH);
-		
-		
-//		JLabel lblScrum = new JLabel("Hier könnte ein ICON stehen!");
-//		panel.add(lblScrum);
-//		
-//		JLabel lblFehler = new JLabel("Fehler oder Whatever");
-//		panel.add(lblFehler);
-//		
-//		progressBar = new JProgressBar();
-//		panel.add(progressBar);
 	}
 	
 	/**
@@ -172,10 +169,24 @@ public class Main extends JFrame implements ActionListener
 	 */
 	private void createTabs()
 	{
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(tabbedPane.getSelectedIndex() == 0){
+					loadDashboardMenu();
+				}
+				if(tabbedPane.getSelectedIndex() == 1){
+					loadBackLogMenu();
+				}
+				if(tabbedPane.getSelectedIndex() == 2){
+					loadBugMenu();
+				}
+				
+
+			}
+		});
+		
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		
 		
 		db = new DBoard(); //DBoard Panel wird initialisiert und zugewiesen
 	
@@ -187,7 +198,6 @@ public class Main extends JFrame implements ActionListener
 		
 		bug = new Tabelle("Kritikalität","");
 		tabbedPane.addTab("Bugliste", null, bug, null);
-		
 
 	}
 
@@ -225,6 +235,31 @@ public class Main extends JFrame implements ActionListener
 	    	stbPanel.updateStatusMeldung("Prioritäten erfolgreich geupdated", false);
 	     };
 	  }.execute();
+	}
+	
+	private void loadBackLogMenu(){
+		clearMenu();
+		schaetzmodus = new JMenuItem("Schätzmodus");
+		schaetzmodus.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/de/scrummies/images/Numbers-icon.png"))));
+		menuFunktionen.add(schaetzmodus);
+		prioUpdate = new JMenuItem("Prioritäten updaten");
+		prioUpdate.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/de/scrummies/images/Button-priority-icon.png"))));
+		prioUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tableRows = bl.getTableModel().getRowCount();
+				stbPanel.createProgressMonitor("Priority Update...", getInstanz(), false, tableRows);
+				updatePriority();
+			}
+		});
+		menuFunktionen.add(prioUpdate);
+	}
+	
+	private void loadDashboardMenu(){
+		clearMenu();
+	}
+	
+	private void loadBugMenu(){
+		clearMenu();
 	}
 	
 	public JFrame getInstanz(){
