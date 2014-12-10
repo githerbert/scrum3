@@ -94,7 +94,7 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 		textField.setText("");
 		
 		
-		lblStoryPoints = new JLabel(); //Kann Story Points oder Kritikalit√§t sein
+		lblStoryPoints = new JLabel(); //Kann Story Points oder Kritikalit‰t sein
 		lblStoryPoints.setText("StoryPoints");
 		GridBagConstraints gbc_lblStoryPoints = new GridBagConstraints();
 		gbc_lblStoryPoints.anchor = GridBagConstraints.EAST;
@@ -424,7 +424,7 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 		JMenuItem mntmSpeichern = new JMenuItem("Speichern");
 		mnDatei.add(mntmSpeichern);
 		
-		JMenuItem mntmSchlieen = new JMenuItem("Schlie√üen");
+		JMenuItem mntmSchlieen = new JMenuItem("Schliessen");
 		mnDatei.add(mntmSchlieen);
 		
 		JMenu mnHilfe = new JMenu("Hilfe");
@@ -453,15 +453,13 @@ public class Fenster extends JFrame implements ActionListener, KeyListener
 
 
 	/**
-	 * Registriert, ob etwas ge√§ndert wurde
+	 * Registriert, ob etwas ge‰ndert wurde
 	 * @param e
 	 */
 	public void keyPressed(KeyEvent e) 
 	{
 		geaendert=true;
 		getBtnSpeichern().setEnabled(true);
-		
-		
 	}
 
 
