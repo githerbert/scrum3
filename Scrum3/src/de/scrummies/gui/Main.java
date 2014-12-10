@@ -142,16 +142,17 @@ public class Main extends JFrame implements ActionListener
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.NORTH);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{170, 0, 325, 208, 0};
+		gbl_panel_1.columnWidths = new int[]{170, 208, 0};
 		gbl_panel_1.rowHeights = new int[]{0, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/de/scrummies/images/dbheader.png")));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 4;
+		gbc_lblNewLabel.gridwidth = 2;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
@@ -175,7 +176,7 @@ public class Main extends JFrame implements ActionListener
 		bl= new Tabelle("Story Points",new FindAllUserStorys());
 		tabbedPane.addTab("Backlog", null, bl, null);
 		
-		bug = new Tabelle("Kritikalit√§t","");
+		bug = new Tabelle("Kritikalit‰t","");
 		tabbedPane.addTab("Bugliste", null, bug, null);
 		
 
